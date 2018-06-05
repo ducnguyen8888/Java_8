@@ -9,21 +9,3 @@ public class LambdaExpression {
         System.out.println( Arrays.toString(employees));
     }
 }
-    class Employee {
-        String name;
-
-        Employee(String name) {
-            this.name = name;
-
-        }
-
-
-        public static int nameCompare(Employee e1, Employee e2) {
-            return e1.name.compareTo(e2.name);
-        }
-
-        public String toString() {
-            return name;
-        }
-    }
-

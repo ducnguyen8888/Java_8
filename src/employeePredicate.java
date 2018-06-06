@@ -9,7 +9,5 @@ public class employeePredicate {
     // use them anywhere you need to evaluate a condition on group
     // or collection of similar objects such that evaluation can result either in true or false
 
-    public static Predicate<Employee> isAdultMale(){
 
-    }
 }

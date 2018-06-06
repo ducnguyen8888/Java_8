@@ -4,8 +4,11 @@
 import java.util.*;
 public class LambdaExpression {
     public static void main(String[] args) {
-        Employee[] employees = {new Employee("d"), new Employee("c"), new Employee("b"), new Employee("a")};
-        Arrays.sort(employees, Employee::nameCompare);
-        System.out.println( Arrays.toString(employees));
+        List <Employee>employees = Arrays.asList( new Employee("a", "d"), new Employee("f","b"), new Employee("b","c"), new Employee("n","m") );
+        Comparator<Employee>groupByComparator = Comparator.comparing(Employee::getFirst).thenComparing(Employee::getLast);
+        employees.sort(groupByComparator);
+
+        employees.stream().forEach(a -> System.out.println(a.firstName+"_"+a.getLast()));
+
     }
 }

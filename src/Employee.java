@@ -49,6 +49,14 @@ public class Employee {
         return this;
     }
 
+    public String getFirst(){
+        return firstName;
+    }
+
+    public String getLast(){
+        return  lastName;
+    }
+
 
 
     public static int nameCompare(Employee e1, Employee e2) {

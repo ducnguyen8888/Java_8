@@ -23,6 +23,7 @@ public class Employee {
         setName(firstName, lastName);
         setId(id);
         setAge(age);
+        setGender(gender);
     }
 
     public Employee setName(String firstName,
@@ -49,6 +50,7 @@ public class Employee {
         return this;
     }
 
+
     public String getFirst(){
         return firstName;
     }
@@ -57,6 +59,13 @@ public class Employee {
         return  lastName;
     }
 
+    public int getAge(){
+        return age;
+    }
+
+    public String getGender(){
+        return gender;
+    }
 
 
     public static int nameCompare(Employee e1, Employee e2) {

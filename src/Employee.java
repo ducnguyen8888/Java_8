@@ -72,8 +72,27 @@ public class Employee {
         return e1.firstName.compareTo(e2.firstName);
     }
 
+    @Override
     public String toString() {
-        return firstName;
+        return firstName + " " +lastName;
+    }
+
+    @Override
+    public boolean equals( Object object ) {
+        if ( !(object instanceof Employee) ) return false;
+        Employee employee = (Employee)object;
+        return this.getAge() == employee.getAge();
+    }
+
+
+    public static void main( String [] args ) {
+        Employee employee = new Employee("Duc", "Nguyen");
+        System.out.println(employee);
+
+        Employee e1 = new Employee("Dustin", "Nguyen", "M", 123, 18);
+        Employee e2 = new Employee("Vincent", "Nguyen", "M", 234, 18);
+
+        System.out.println( e1.equals(e2));
     }
 
 }

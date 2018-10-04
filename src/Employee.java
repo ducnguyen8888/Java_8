@@ -84,6 +84,10 @@ public class Employee {
         return this.getAge() == employee.getAge();
     }
 
+    public int hashCode( String val){
+        return val.hashCode();
+    }
+
 
     public static void main( String [] args ) {
         Employee employee = new Employee("Duc", "Nguyen");
@@ -93,6 +97,7 @@ public class Employee {
         Employee e2 = new Employee("Vincent", "Nguyen", "M", 234, 18);
 
         System.out.println( e1.equals(e2));
+        System.out.println(employee.hashCode(e1.firstName+e1.lastName));
     }
 
 }

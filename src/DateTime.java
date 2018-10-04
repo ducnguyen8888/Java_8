@@ -1,6 +1,7 @@
 /**
  * Created by Duc.Nguyen on 6/7/2018.
  */
+import java.security.KeyStore;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjuster;
@@ -8,11 +9,50 @@ import java.time.temporal.TemporalAdjusters;
 
 public class DateTime {
     // LocalDate class represent a date
+    private LocalDate startDate = null;
+    private LocalDate endDate   = null;
+
+    public static void biWeeklySchedule(LocalDate start, LocalDate end ){
+        LocalDate nextSchedule = start;
+        while( nextSchedule.isBefore(end) ) {
+            System.out.println("Your next biweekly schedule "+ nextSchedule);
+            nextSchedule = nextSchedule.plus(Period.ofWeeks(2));
+
+        }
+
+    }
+    public static void monthlySchedule(LocalDate start, LocalDate end ){
+        LocalDate nextSchedule = start;
+        while( nextSchedule.isBefore(end) ) {
+            System.out.println("Your next monthly schedule "+ nextSchedule);
+            nextSchedule = nextSchedule.plus(Period.ofMonths(1));
+        }
+
+    }
+
+    public static void biMonthlySchedule(LocalDate start, LocalDate end ){
+        LocalDate nextSchedule = start;
+        while( nextSchedule.isBefore(end) ) {
+            System.out.println("Your next bimonthly schedule "+ nextSchedule);
+            nextSchedule = nextSchedule.plus(Period.ofMonths(2));
+        }
+
+    }
+
+
+    public static void quarterlySchedule(LocalDate start, LocalDate end ){
+        LocalDate nextSchedule = start;
+        while( nextSchedule.isBefore(end) ) {
+            System.out.println("Your next quarterly schedule "+ nextSchedule);
+            nextSchedule = nextSchedule.plus(Period.ofMonths(3));
+        }
+
+    }
 
     public static void main(String[] args) {
         //LocalDate represents a date
         // Specify the specific date
-        LocalDate localDate = LocalDate.of(2018, 6, 9);
+        LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.BASIC_ISO_DATE.ofPattern("yyyy MMM dd");
         LocalDate endOfMonth        = localDate.with(TemporalAdjusters.lastDayOfMonth());
         System.out.println( endOfMonth);
@@ -28,11 +68,21 @@ public class DateTime {
         System.out.println(localDate.getYear());
         System.out.println(localDate.getMonth());
 
+        // Manipulate the dates
+        localDate = localDate.plusDays(3);
+        System.out.println("New date(plus day):"+localDate);
+        localDate = localDate.plusWeeks(1);
+        System.out.println("New date(plus week):"+localDate);
+        localDate = localDate.plusMonths(1);
+        System.out.println("New date(plus month)"+localDate);
+        localDate = localDate.plusYears(1);
+        System.out.println("New date(plus year)"+ localDate);
+
         //LocalTime
         // Current time
         //LocalTime localTime = LocalTime.now();
         // Specify the specific date
-        LocalTime localTime = LocalTime.of(14,55,55);
+        LocalTime localTime = LocalTime.now();
         System.out.println( localTime.toString() );
         System.out.println( localTime.getHour());
         System.out.println( localTime.getMinute() );
@@ -47,6 +97,18 @@ public class DateTime {
         System.out.println( localDateTime.getMonth());
         System.out.println( localDateTime.getDayOfMonth());
         System.out.println( localDateTime.getHour());
+
+        Month month = Month.APRIL;
+
+        System.out.println( 4 == month.getValue());
+
+        LocalDate start = LocalDate.now();
+        LocalDate end   = start.plusYears(1);
+
+        biWeeklySchedule(start, end);
+        monthlySchedule(start, end );
+        biMonthlySchedule(start, end);
+        quarterlySchedule(start, end );
 
     }
 

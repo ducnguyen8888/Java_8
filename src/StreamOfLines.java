@@ -2,26 +2,41 @@
  * Created by Duc.Nguyen on 6/25/2018.
  */
 import java.util.*;
-import java.io.IOException;
+import java.io.*;
 import java.nio.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamOfLines {
-    public static List<String> readStreamOfLinesUsingFiles() throws IOException {
-        List<String> lines = new ArrayList<String>();
-        Stream<String>data = Files.lines(Paths.get("C:\\Users\\Duc.Nguyen\\Desktop\\test.txt"));
-        lines = data.filter(line -> !line.isEmpty()).collect(Collectors.toList());
 
+    // normal IO opertion till java 7
 
-        return lines;
+    public static void readLinesUsingFileReader() throws IOException{
+        BufferedReader br = new BufferedReader( new FileReader( new File("C:\\Users\\Duc.Nguyen\\Desktop\\intelj.txt")));
+        String line;
+        while( (line = br.readLine())!=null ) {
+            System.out.println(line);
+        }
     }
 
-    public static  void main(String [] args) throws Exception{
-        List<String> lines = readStreamOfLinesUsingFiles();
+    public static void readStreamofLine() throws IOException{
+        Path path = Paths.get("C:\\Users\\Duc.Nguyen\\Desktop\\intelj.txt");
+        try {
+            Stream<String> data = Files.lines(path).map(s -> s.split("\\s+"))
+                             .flatMap(Arrays::stream)
+                             .distinct();
+            List<String> myList = data.collect(Collectors.toList());
+            myList.forEach(s -> System.out.println(s.length()));
 
-        System.out.println(lines.size());
+
+
+        } catch (IOException IE){}
+    }
+
+    public static void  main(String [] args ){
+        try {
+            readStreamofLine();
+        } catch (Exception e){}
     }
 }

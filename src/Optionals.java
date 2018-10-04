@@ -1,6 +1,7 @@
 /**
  * Created by Duc.Nguyen on 6/4/2018.
  */
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,11 @@ public class Optionals {
     // An optional can contain a non - null T reference
     // or it may contain nothing
     //
+
+    public static Optional<Double>avarage(double value1, double value2){
+        if (value2 == 0) return Optional.empty();
+        return Optional.of(value1/value2);
+    }
 
     public static  void main(String [] args) {
         // Create empty optional
@@ -38,6 +44,11 @@ public class Optionals {
         Optional<Computer>computer = Optional.empty();
         String version = computer.flatMap(Computer::getSoundCard).flatMap(SoundCard::getUsb).map(USB::getVersion).orElse("Unknown");
         System.out.println( version );
+
+        System.out.println("Average: "+avarage(4,30).get() );
+        Locale locale = new Locale("en", "US");
+
+        System.out.println(NumberFormat.getCurrencyInstance(locale).format(2369.23));
     }
 
 

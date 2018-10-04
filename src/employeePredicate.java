@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class employeePredicate {
+public class EmployeePredicate {
     // a functional interface. it means we can pass lambda expression wherever predicate is expected
     // use them anywhere you need to evaluate a condition on group
     // or collection of similar objects such that evaluation can result either in true or false
@@ -29,6 +29,8 @@ public class employeePredicate {
         return employees.stream().filter(predicate).collect(Collectors.<Employee>toList());
     }
 
+    public static Predicate<Employee> isAdult = employee -> employee.getAge() > 18;
+
     public static void main(String [] args){
         List<Employee>employees = new ArrayList<Employee>();
         employees.addAll(Arrays.asList( new Employee("Duc", "Nguyen", "M", 1,29),
@@ -39,5 +41,10 @@ public class employeePredicate {
         System.out.println( filterEmployees(employees,isAdultMale() ) );
         System.out.println( filterEmployees(employees,isAdultFemale() ) );
         System.out.println( filterEmployees(employees, isAgeMoreThan(21)));
+
+        employees.forEach(employee -> System.out.println(isAdult.test(employee)));
+
+        System.out.println(employees.stream().anyMatch(isAdultMale()));
+
     }
 }

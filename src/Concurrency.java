@@ -1,9 +1,13 @@
+import java.time.LocalTime;
+import java.util.Locale;
 import java.util.concurrent.*;
+import java.util.*;
 
 /**
  * Created by Duc.Nguyen on 10/4/2018.
  */
 public class Concurrency  {
+    static   int counter = 0;
     public static void concurrencyPool()throws InterruptedException, ExecutionException{
         ExecutorService service = Executors.newFixedThreadPool(15);
         long start = System.currentTimeMillis();
@@ -55,7 +59,7 @@ public class Concurrency  {
         }
     }
 
-    public static void singleThread() throws InterruptedException{
+    public static void singleThread() throws InterruptedException {
         ExecutorService service = null;
         try {
             service = Executors.newSingleThreadExecutor();
@@ -68,8 +72,47 @@ public class Concurrency  {
         }
     }
 
+    public static void scheduleAtFixedRate() throws InterruptedException{
+       ScheduledExecutorService scheduler =
+                Executors.newScheduledThreadPool(1);
+        Runnable beeper = () -> System.out.println("Hello at "+LocalTime.now().toString());
+        ScheduledFuture<?> beeperHandle =
+                scheduler.scheduleAtFixedRate(beeper, 10, 10, TimeUnit.SECONDS);
+        Runnable canceller = () -> beeperHandle.cancel(true);
+        scheduler.schedule(canceller, 1, TimeUnit.HOURS);
+
+
+    }
+
+    public static synchronized void add(){
+        System.out.println(counter++);
+    }
+
+    public static void incrementCounter() throws InterruptedException{
+        ExecutorService service = null;
+        try {
+            service = Executors.newFixedThreadPool(5);
+            for ( int i = 0; i < 20; i++){
+                service.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        add();
+                    }
+                });
+            }
+
+            service.shutdown();
+            service.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+
+        } finally {
+            if ( service != null ){
+                service.shutdown();
+            }
+        }
+    }
+
     public static void main(String [] args) throws InterruptedException, ExecutionException {
-        result();
+        incrementCounter();
     }
 
     private static void sleep(){
